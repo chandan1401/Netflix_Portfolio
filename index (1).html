@@ -1,0 +1,684 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Chandan Kumar Kisku</title>
+<style>
+  @import url('https://fonts.googleapis.com/css2?family=Bebas+Neue&family=Roboto:wght@300;400;500;700;900&display=swap');
+
+  :root{
+    --nf-black:#000000;
+    --nf-dark:#141414;
+    --nf-dark2:#181818;
+    --nf-red:#E50914;
+    --nf-red-dark:#B20710;
+    --nf-gray:#808080;
+    --nf-light-gray:#e5e5e5;
+  }
+  *{margin:0;padding:0;box-sizing:border-box;}
+  html{scroll-behavior:smooth;}
+  body{
+    background:var(--nf-black);
+    color:#fff;
+    font-family:'Roboto',Helvetica,Arial,sans-serif;
+    overflow-x:hidden;
+  }
+
+  /* ---------- NAV ---------- */
+  header{
+    position:fixed;top:0;left:0;right:0;z-index:1000;
+    display:flex;align-items:center;justify-content:space-between;
+    padding:18px 4%;
+    transition:background .4s ease;
+  }
+  header.scrolled{background:var(--nf-black);box-shadow:0 2px 10px rgba(0,0,0,.6);}
+  .logo{
+    font-family:'Bebas Neue',sans-serif;
+    color:var(--nf-red);
+    font-size:2.2rem;
+    letter-spacing:1px;
+    text-decoration:none;
+    cursor:pointer;
+  }
+  nav ul{display:flex;list-style:none;gap:22px;}
+  nav ul li a{
+    color:var(--nf-light-gray);
+    text-decoration:none;
+    font-size:.92rem;
+    font-weight:400;
+    transition:color .2s;
+  }
+  nav ul li a:hover{color:var(--nf-gray);}
+  .nav-right{display:flex;align-items:center;gap:18px;}
+  .avatar{
+    width:32px;height:32px;border-radius:4px;
+    background:linear-gradient(135deg,var(--nf-red),#5a0a0e);
+    display:flex;align-items:center;justify-content:center;
+    font-family:'Bebas Neue';font-size:1rem;
+  }
+
+  /* ---------- HERO ---------- */
+  .hero{
+    position:relative;
+    height:100vh;
+    display:flex;
+    align-items:center;
+    background:
+      linear-gradient(180deg,rgba(0,0,0,.15) 0%, rgba(0,0,0,.05) 50%, var(--nf-black) 100%),
+      linear-gradient(90deg, rgba(0,0,0,.95) 15%, rgba(0,0,0,.2) 60%, rgba(0,0,0,.65) 100%),
+      radial-gradient(circle at 70% 30%, #3a0a0e 0%, #140306 45%, #000 80%);
+    background-blend-mode:normal;
+  }
+  .hero-content{
+    padding:0 4%;
+    max-width:640px;
+    z-index:2;
+  }
+  .hero-tag{
+    color:var(--nf-red);
+    font-weight:700;
+    letter-spacing:2px;
+    font-size:.85rem;
+    margin-bottom:14px;
+    text-transform:uppercase;
+  }
+  .hero-title{
+    font-family:'Bebas Neue',sans-serif;
+    font-size:5.5rem;
+    line-height:1;
+    letter-spacing:1px;
+    text-shadow:2px 2px 8px rgba(0,0,0,.7);
+  }
+  .hero-sub{
+    font-size:1.35rem;
+    color:var(--nf-light-gray);
+    margin:18px 0 10px;
+    font-weight:400;
+  }
+  .hero-meta{
+    display:flex;gap:10px;align-items:center;
+    color:var(--nf-light-gray);
+    font-size:.95rem;
+    margin-bottom:22px;
+    flex-wrap:wrap;
+  }
+  .match{color:#46d369;font-weight:700;}
+  .badge{
+    border:1px solid rgba(255,255,255,.4);
+    padding:1px 6px;font-size:.75rem;border-radius:3px;
+  }
+  .hero-desc{
+    color:var(--nf-light-gray);
+    font-size:1rem;
+    line-height:1.5;
+    margin-bottom:26px;
+    max-width:560px;
+  }
+  .hero-buttons{display:flex;gap:14px;flex-wrap:wrap;}
+  .btn{
+    display:flex;align-items:center;gap:8px;
+    padding:11px 26px;
+    font-size:1.05rem;
+    font-weight:700;
+    border:none;border-radius:4px;
+    cursor:pointer;
+    text-decoration:none;
+    transition:opacity .15s ease;
+  }
+  .btn-play{background:#fff;color:#000;}
+  .btn-play:hover{opacity:.8;}
+  .btn-info{background:rgba(109,109,110,.7);color:#fff;}
+  .btn-info:hover{background:rgba(109,109,110,.45);}
+  .btn svg{width:20px;height:20px;}
+
+  .age-badge{
+    position:absolute;left:4%;bottom:14%;
+    border-left:4px solid var(--nf-red);
+    background:rgba(0,0,0,.55);
+    padding:8px 14px;
+    font-size:.85rem;
+    color:var(--nf-light-gray);
+  }
+
+  /* ---------- ROWS ---------- */
+  .rows{padding:40px 0 60px;position:relative;z-index:3;margin-top:-90px;}
+  .row{margin-bottom:48px;}
+  .row-title{
+    font-size:1.4rem;font-weight:700;
+    padding:0 4%;margin-bottom:10px;
+    display:flex;align-items:center;gap:10px;
+  }
+  .row-title .count{color:var(--nf-gray);font-weight:400;font-size:1rem;}
+  .row-track{
+    display:flex;
+    gap:8px;
+    overflow-x:auto;
+    padding:10px 4% 30px;
+    scrollbar-width:none;
+  }
+  .row-track::-webkit-scrollbar{display:none;}
+
+  .card{
+    position:relative;
+    flex:0 0 auto;
+    width:300px;
+    border-radius:6px;
+    overflow:hidden;
+    cursor:pointer;
+    transition:transform .3s ease, z-index 0s;
+    background:var(--nf-dark2);
+  }
+  .card:hover{
+    transform:scale(1.08) translateY(-10px);
+    z-index:10;
+    box-shadow:0 10px 30px rgba(0,0,0,.8);
+  }
+  .card-banner{
+    height:168px;
+    display:flex;align-items:center;justify-content:center;
+    position:relative;
+    padding:20px;
+    text-align:center;
+  }
+  .card-banner h3{
+    font-family:'Bebas Neue';
+    font-size:1.6rem;
+    letter-spacing:.5px;
+    color:#fff;
+    text-shadow:1px 1px 6px rgba(0,0,0,.6);
+  }
+  .card-info{
+    padding:12px 14px 16px;
+    font-size:.85rem;
+  }
+  .card-info .top{
+    display:flex;justify-content:space-between;align-items:center;margin-bottom:6px;
+  }
+  .card-info .match{font-size:.85rem;}
+  .card-tags{color:var(--nf-gray);font-size:.78rem;margin-top:4px;}
+  .card-desc{color:var(--nf-light-gray);font-size:.8rem;margin-top:8px;line-height:1.4;}
+  .card-links{margin-top:10px;display:flex;gap:10px;}
+  .card-links a{
+    color:var(--nf-light-gray);font-size:.78rem;
+    text-decoration:none;
+    border:1px solid rgba(255,255,255,.3);
+    padding:3px 10px;border-radius:3px;
+  }
+  .card-links a:hover{border-color:#fff;color:#fff;}
+
+  /* banner color themes */
+  .banner-1{background:linear-gradient(135deg,#450a0a,#7f1d1d 60%,#000);}
+  .banner-2{background:linear-gradient(135deg,#0a2e45,#1d4e7f 60%,#000);}
+  .banner-3{background:linear-gradient(135deg,#0a4520,#1d7f4e 60%,#000);}
+  .banner-4{background:linear-gradient(135deg,#3a0a45,#6f1d7f 60%,#000);}
+  .banner-5{background:linear-gradient(135deg,#453a0a,#7f6f1d 60%,#000);}
+
+  /* ---------- SKILLS PILLS ---------- */
+  .pill-row{
+    display:flex;flex-wrap:wrap;gap:10px;
+    padding:0 4%;
+  }
+  .pill{
+    background:var(--nf-dark2);
+    border:1px solid #2c2c2c;
+    color:var(--nf-light-gray);
+    padding:8px 16px;
+    border-radius:20px;
+    font-size:.85rem;
+  }
+
+  /* ---------- ABOUT / TOP TEN STYLE ---------- */
+  .about-section{padding:0 4% 20px;}
+  .top-card{
+    display:flex;align-items:center;gap:20px;
+    background:var(--nf-dark2);
+    border-radius:6px;
+    padding:22px 26px;
+    max-width:900px;
+  }
+  .top-card .num{
+    font-family:'Bebas Neue';
+    font-size:5rem;
+    color:transparent;
+    -webkit-text-stroke:2px var(--nf-gray);
+    line-height:1;
+  }
+  .top-card p{color:var(--nf-light-gray);line-height:1.6;font-size:.95rem;}
+
+  /* ---------- FOOTER / CONTACT ---------- */
+  footer{
+    background:var(--nf-black);
+    border-top:8px solid var(--nf-dark);
+    padding:60px 4% 40px;
+    color:var(--nf-gray);
+  }
+  .footer-title{
+    font-family:'Bebas Neue';
+    font-size:2.4rem;
+    color:#fff;
+    margin-bottom:8px;
+  }
+  .footer-sub{margin-bottom:30px;font-size:1rem;}
+  .contact-grid{
+    display:grid;
+    grid-template-columns:repeat(auto-fit,minmax(220px,1fr));
+    gap:20px;
+    max-width:900px;
+    margin-bottom:40px;
+  }
+  .contact-card{
+    background:var(--nf-dark2);
+    padding:20px;border-radius:6px;
+    display:flex;align-items:center;gap:14px;
+    text-decoration:none;
+    color:#fff;
+    transition:background .2s;
+    border:1px solid #2c2c2c;
+  }
+  .contact-card:hover{background:#232323;border-color:var(--nf-red);}
+  .contact-card .icon{
+    width:42px;height:42px;
+    display:flex;align-items:center;justify-content:center;
+    background:var(--nf-red);
+    border-radius:6px;
+    flex-shrink:0;
+  }
+  .contact-card .icon svg{width:22px;height:22px;fill:#fff;}
+  .contact-card .label{font-size:.75rem;color:var(--nf-gray);text-transform:uppercase;letter-spacing:1px;}
+  .contact-card .value{font-size:.95rem;font-weight:500;}
+
+  .footer-links{
+    display:grid;
+    grid-template-columns:repeat(auto-fit,minmax(140px,1fr));
+    gap:20px;
+    max-width:900px;
+    font-size:.85rem;
+    border-top:1px solid #2c2c2c;
+    padding-top:30px;
+  }
+  .footer-links a{color:var(--nf-gray);text-decoration:none;display:block;margin-bottom:10px;}
+  .footer-links a:hover{text-decoration:underline;color:#fff;}
+  .footer-bottom{margin-top:30px;font-size:.8rem;color:#555;}
+
+  @media(max-width:768px){
+    .hero-title{font-size:3rem;}
+    .card{width:230px;}
+    .card-banner{height:130px;}
+    nav ul{display:none;}
+    .top-card{flex-direction:column;text-align:center;}
+  }
+
+  /* ---------- INTRO (Netflix "boom" logo) ---------- */
+  #introScreen{
+    position:fixed;inset:0;z-index:9999;
+    background:#000;
+    display:flex;align-items:center;justify-content:center;
+    overflow:hidden;
+  }
+  .intro-logo{
+    font-family:'Bebas Neue',sans-serif;
+    color:var(--nf-red);
+    font-size:5rem;
+    letter-spacing:2px;
+    opacity:0;
+    transform:scale(.4);
+    text-shadow:0 0 40px rgba(229,9,20,.9), 0 0 80px rgba(229,9,20,.5);
+    animation: introPop 2.6s cubic-bezier(.2,.8,.3,1) forwards;
+  }
+  @keyframes introPop{
+    0%{opacity:0;transform:scale(.4);}
+    35%{opacity:1;transform:scale(1.08);}
+    55%{opacity:1;transform:scale(1);}
+    85%{opacity:1;transform:scale(1);}
+    100%{opacity:0;transform:scale(1.15);}
+  }
+  #introScreen.hide{
+    animation: fadeOutIntro .5s ease forwards;
+    pointer-events:none;
+  }
+  @keyframes fadeOutIntro{ to{opacity:0;} }
+
+  /* ---------- PROFILE GATE ("Who's watching?") ---------- */
+  #profileScreen{
+    position:fixed;inset:0;z-index:9998;
+    background:var(--nf-black);
+    display:none;
+    align-items:center;justify-content:center;
+    flex-direction:column;
+    opacity:0;
+    transition:opacity .5s ease;
+  }
+  #profileScreen.show{display:flex;opacity:1;}
+  #profileScreen.fade-out{opacity:0;}
+  .profile-logo{
+    position:absolute;top:28px;left:4%;
+    font-family:'Bebas Neue',sans-serif;
+    color:var(--nf-red);
+    font-size:1.9rem;
+    letter-spacing:1px;
+  }
+  .profile-title{
+    font-size:2.6rem;
+    font-weight:400;
+    color:#fff;
+    margin-bottom:50px;
+    text-align:center;
+  }
+  .profile-options{
+    display:flex;gap:40px;flex-wrap:wrap;justify-content:center;
+  }
+  .profile-card{
+    display:flex;flex-direction:column;align-items:center;gap:18px;
+    cursor:pointer;
+    background:none;border:none;
+  }
+  .profile-avatar{
+    width:150px;height:150px;
+    border-radius:8px;
+    display:flex;align-items:center;justify-content:center;
+    border:3px solid transparent;
+    transition:border-color .15s ease, transform .15s ease;
+  }
+  .profile-card:hover .profile-avatar{
+    border-color:#fff;
+    transform:scale(1.04);
+  }
+  .profile-avatar.recruiter{background:linear-gradient(135deg,#0a2e45,#1d4e7f 60%,#000);}
+  .profile-avatar.me{background:linear-gradient(135deg,#450a0a,#7f1d1d 60%,#000);}
+  .profile-avatar svg{width:74px;height:74px;}
+  .profile-name{
+    color:var(--nf-gray);
+    font-size:1.15rem;
+    transition:color .15s ease;
+  }
+  .profile-card:hover .profile-name{color:#fff;}
+
+  #mainSite{
+    display:none;
+    opacity:0;
+    animation:none;
+  }
+  #mainSite.reveal{
+    display:block;
+    animation:fadeInSite .6s ease forwards;
+  }
+  @keyframes fadeInSite{ from{opacity:0;} to{opacity:1;} }
+</style>
+</head>
+<body>
+
+<!-- INTRO LOGO -->
+<div id="introScreen">
+  <div class="intro-logo">CHANDAN</div>
+</div>
+
+<!-- PROFILE GATE -->
+<div id="profileScreen">
+  <div class="profile-logo">CHANDAN</div>
+  <div class="profile-title">Who's watching?</div>
+  <div class="profile-options">
+    <button class="profile-card" data-profile="recruiter">
+      <div class="profile-avatar recruiter">
+        <svg viewBox="0 0 24 24" fill="#fff"><path d="M12 12c2.7 0 8 1.34 8 4v2H4v-2c0-2.66 5.3-4 8-4zm0-2a4 4 0 1 0 0-8 4 4 0 0 0 0 8z"/></svg>
+      </div>
+      <div class="profile-name">Recruiter</div>
+    </button>
+    <button class="profile-card" data-profile="me">
+      <div class="profile-avatar me">
+        <svg viewBox="0 0 24 24" fill="#fff"><path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm0 3a3 3 0 1 1 0 6 3 3 0 0 1 0-6zm0 14.2a7.2 7.2 0 0 1-6-3.22c.03-1.99 4-3.08 6-3.08s5.97 1.09 6 3.08a7.2 7.2 0 0 1-6 3.22z"/></svg>
+      </div>
+      <div class="profile-name">Me</div>
+    </button>
+  </div>
+</div>
+
+<div id="mainSite">
+
+<header id="siteHeader">
+  <a href="#top" class="logo">CHANDAN</a>
+  <nav>
+    <ul>
+      <li><a href="#top">Home</a></li>
+      <li><a href="#internship">Internship</a></li>
+      <li><a href="#projects">Projects</a></li>
+      <li><a href="#skills">Skills</a></li>
+      <li><a href="#contact">Contact</a></li>
+    </ul>
+  </nav>
+  <div class="nav-right">
+    <div class="avatar">CK</div>
+  </div>
+</header>
+
+<section class="hero" id="top">
+  <div class="hero-content">
+    <div class="hero-tag">Chandan Kumar Kisku Original</div>
+    <h1 class="hero-title">CHANDAN<br>KUMAR KISKU</h1>
+    <p class="hero-sub">AI &amp; Machine Learning Engineer</p>
+    <div class="hero-meta">
+      <span class="match">98% Match</span>
+      <span class="badge">2026</span>
+      <span class="badge">B.Tech Final Year</span>
+      <span class="badge">HD</span>
+    </div>
+    <p class="hero-desc">
+      Final-year B.Tech student specializing in AI &amp; Machine Learning at Siksha 'O' Anusandhan University.
+      Builds intelligent systems with real-world impact — from regional language accessibility tools
+      to AI-driven traffic management. Ex-Intern at BCCL.
+    </p>
+    <div class="hero-buttons">
+      <a href="#projects" class="btn btn-play">
+        <svg viewBox="0 0 24 24" fill="#000"><path d="M8 5v14l11-7z"/></svg>
+        View Projects
+      </a>
+      <a href="#contact" class="btn btn-info">
+        <svg viewBox="0 0 24 24" fill="#fff"><path d="M11 7h2v2h-2zm0 4h2v6h-2zm1-9C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm0 18c-4.41 0-8-3.59-8-8s3.59-8 8-8 8 3.59 8 8-3.59 8-8 8z"/></svg>
+        More Info
+      </a>
+    </div>
+  </div>
+</section>
+
+<div class="rows">
+
+  <!-- INTERNSHIP ROW -->
+  <div class="row" id="internship">
+    <div class="row-title">Internship Experience <span class="count">1 title</span></div>
+    <div class="row-track">
+      <div class="card">
+        <div class="card-banner banner-1"><h3>BCCL<br>INTERNSHIP</h3></div>
+        <div class="card-info">
+          <div class="top"><span class="match">96% Match</span><span class="badge">Featured</span></div>
+          <div class="card-tags">Bharat Coking Coal Limited</div>
+          <div class="card-desc">
+            Worked as an intern at BCCL, gaining hands-on exposure to real-world engineering
+            operations and applying technical skills to organizational problem-solving.
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- PROJECTS ROW -->
+  <div class="row" id="projects">
+    <div class="row-title">Projects <span class="count">2 titles</span></div>
+    <div class="row-track">
+      <div class="card">
+        <div class="card-banner banner-3"><h3>SANTHALI<br>TRANSLATOR</h3></div>
+        <div class="card-info">
+          <div class="top"><span class="match">97% Match</span><span class="badge">AI/NLP</span></div>
+          <div class="card-tags">Language Accessibility · Machine Translation</div>
+          <div class="card-desc">
+            An AI-powered translation app for the Santhali language, built to improve
+            accessibility and preserve a regional language through technology.
+          </div>
+          <div class="card-links">
+            <a href="#" target="_blank">Details</a>
+          </div>
+        </div>
+      </div>
+      <div class="card">
+        <div class="card-banner banner-2"><h3>AI TRAFFIC<br>MANAGEMENT</h3></div>
+        <div class="card-info">
+          <div class="top"><span class="match">95% Match</span><span class="badge">Computer Vision</span></div>
+          <div class="card-tags">Smart Systems · Real-time Detection</div>
+          <div class="card-desc">
+            An intelligent traffic management system using AI to analyze traffic flow
+            and optimize signal timing for smoother, safer roads.
+          </div>
+          <div class="card-links">
+            <a href="#" target="_blank">Details</a>
+          </div>
+        </div>
+      </div>
+      <div class="card">
+        <div class="card-banner banner-4"><h3>MORE<br>COMING SOON</h3></div>
+        <div class="card-info">
+          <div class="top"><span class="match">New</span><span class="badge">In Progress</span></div>
+          <div class="card-tags">Always building something new</div>
+          <div class="card-desc">
+            Currently exploring new ideas at the intersection of AI and real-world impact.
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- SKILLS ROW -->
+  <div class="row" id="skills">
+    <div class="row-title">Skills &amp; Tools</div>
+    <div class="pill-row">
+      <span class="pill">Python</span>
+      <span class="pill">Machine Learning</span>
+      <span class="pill">Deep Learning</span>
+      <span class="pill">NLP</span>
+      <span class="pill">Computer Vision</span>
+      <span class="pill">TensorFlow / PyTorch</span>
+      <span class="pill">Data Structures &amp; Algorithms</span>
+      <span class="pill">SQL</span>
+      <span class="pill">Git &amp; GitHub</span>
+    </div>
+  </div>
+
+  <!-- ABOUT / TOP 10 STYLE CARD -->
+  <div class="row about-section">
+    <div class="row-title">About Chandan</div>
+    <div class="top-card">
+      <div class="num">01</div>
+      <p>
+        Chandan is a final-year B.Tech student specializing in AI and Machine Learning,
+        passionate about building technology with real-world impact. His work spans
+        language accessibility, intelligent transportation, and applied ML — combining
+        strong fundamentals with a drive to solve problems that matter.
+      </p>
+    </div>
+  </div>
+
+</div>
+
+<footer id="contact">
+  <div class="footer-title">Let's Connect</div>
+  <p class="footer-sub">Have a role, project, or collaboration in mind? Reach out below.</p>
+
+  <div class="contact-grid">
+    <a class="contact-card" href="https://github.com/YOUR-GITHUB-USERNAME" target="_blank" rel="noopener">
+      <div class="icon">
+        <svg viewBox="0 0 24 24"><path d="M12 .5C5.73.5.98 5.24.98 11.5c0 5.02 3.26 9.28 7.78 10.78.57.1.78-.25.78-.55 0-.27-.01-1.16-.02-2.1-3.17.69-3.84-1.35-3.84-1.35-.52-1.32-1.27-1.67-1.27-1.67-1.04-.71.08-.7.08-.7 1.15.08 1.76 1.18 1.76 1.18 1.02 1.75 2.68 1.24 3.33.95.1-.74.4-1.24.72-1.53-2.53-.29-5.19-1.27-5.19-5.63 0-1.24.44-2.26 1.17-3.06-.12-.29-.51-1.45.11-3.02 0 0 .96-.31 3.14 1.17a10.9 10.9 0 0 1 5.72 0c2.18-1.48 3.14-1.17 3.14-1.17.62 1.57.23 2.73.11 3.02.73.8 1.17 1.82 1.17 3.06 0 4.37-2.67 5.34-5.21 5.62.41.36.77 1.07.77 2.15 0 1.55-.01 2.8-.01 3.18 0 .3.2.66.79.55 4.51-1.51 7.77-5.76 7.77-10.78C23.02 5.24 18.27.5 12 .5z"/></svg>
+      </div>
+      <div>
+        <div class="label">GitHub</div>
+        <div class="value">github.com/YOUR-GITHUB-USERNAME</div>
+      </div>
+    </a>
+
+    <a class="contact-card" href="https://linkedin.com/in/YOUR-LINKEDIN-ID" target="_blank" rel="noopener">
+      <div class="icon">
+        <svg viewBox="0 0 24 24"><path d="M20.45 20.45h-3.56v-5.57c0-1.33-.02-3.04-1.85-3.04-1.85 0-2.14 1.45-2.14 2.94v5.67H9.34V9h3.42v1.56h.05c.48-.9 1.64-1.85 3.38-1.85 3.61 0 4.28 2.38 4.28 5.47v6.27zM5.34 7.43a2.07 2.07 0 1 1 0-4.14 2.07 2.07 0 0 1 0 4.14zM7.12 20.45H3.56V9h3.56v11.45z"/></svg>
+      </div>
+      <div>
+        <div class="label">LinkedIn</div>
+        <div class="value">linkedin.com/in/YOUR-LINKEDIN-ID</div>
+      </div>
+    </a>
+
+    <a class="contact-card" href="mailto:your.email@example.com">
+      <div class="icon">
+        <svg viewBox="0 0 24 24"><path d="M20 4H4c-1.1 0-1.99.9-1.99 2L2 18c0 1.1.9 2 2 2h16c1.1 0 2-.9 2-2V6c0-1.1-.9-2-2-2zm0 4-8 5-8-5V6l8 5 8-5v2z"/></svg>
+      </div>
+      <div>
+        <div class="label">Email</div>
+        <div class="value">your.email@example.com</div>
+      </div>
+    </a>
+  </div>
+
+  <div class="footer-links">
+    <div>
+      <a href="#internship">Internship</a>
+      <a href="#projects">Projects</a>
+      <a href="#skills">Skills</a>
+    </div>
+    <div>
+      <a href="https://github.com/YOUR-GITHUB-USERNAME" target="_blank">GitHub</a>
+      <a href="https://linkedin.com/in/YOUR-LINKEDIN-ID" target="_blank">LinkedIn</a>
+      <a href="mailto:your.email@example.com">Email</a>
+    </div>
+  </div>
+
+  <div class="footer-bottom">
+    Chandan Kumar Kisku &mdash; Portfolio, styled in the spirit of Netflix. Built with HTML &amp; CSS.
+  </div>
+</footer>
+
+</div><!-- /#mainSite -->
+
+<script>
+  // 1. Intro logo "boom" animation, then reveal profile gate
+  const introScreen = document.getElementById('introScreen');
+  const profileScreen = document.getElementById('profileScreen');
+  const mainSite = document.getElementById('mainSite');
+
+  setTimeout(() => {
+    introScreen.classList.add('hide');
+    profileScreen.classList.add('show');
+    setTimeout(() => introScreen.remove(), 550);
+  }, 2300);
+
+  // 2. Profile selection -> reveal main site
+  document.querySelectorAll('.profile-card').forEach(card => {
+    card.addEventListener('click', () => {
+      const profile = card.getAttribute('data-profile');
+      profileScreen.classList.add('fade-out');
+      setTimeout(() => {
+        profileScreen.style.display = 'none';
+        mainSite.classList.add('reveal');
+        document.body.style.overflow = 'auto';
+        personalize(profile);
+        window.scrollTo(0,0);
+      }, 500);
+    });
+  });
+
+  function personalize(profile){
+    const tag = document.querySelector('.hero-tag');
+    if(!tag) return;
+    if(profile === 'recruiter'){
+      tag.textContent = 'Recommended For You, Recruiter';
+    } else {
+      tag.textContent = "Chandan's Portfolio";
+    }
+  }
+
+  // Lock scroll until a profile is picked
+  document.body.style.overflow = 'hidden';
+
+  window.addEventListener('scroll', () => {
+    const header = document.getElementById('siteHeader');
+    if (window.scrollY > 20) header.classList.add('scrolled');
+    else header.classList.remove('scrolled');
+  });
+</script>
+
+</body>
+</html>
